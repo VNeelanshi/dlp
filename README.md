@@ -4,6 +4,25 @@ A quarter long project reproducing a deep learning paper
 ### Team: Nayan Mehta, KJ Schmidt, Aristana Scourtas, Neelanshi Varia 
 ### Paper: The Building Blocks of Interpretability
 
+## Table of Contents
+  * [Paper info](#paper-info)
+  * [Literature review](#literature-review)
+  * [Codebase search](#codebase-search)
+  * [Other useful resources](#other-useful-resources)
+  * [Reproducibility review](#reproducibility-review)
+     * [Other reproducibility notes](#other-reproducibility-notes)
+     * [Overall reproducibility](#overall-reproducibility)
+  * [Timeline](#timeline)
+     * [Week 3 (4/20-4/26)<br>](#week-3-420-426)
+     * [Week 4 (4/27-5/3)<br>](#week-4-427-53)
+     * [Week 5 (5/4-5/10)<br>](#week-5-54-510)
+     * [Week 6 (5/11-5/17)<br>](#week-6-511-517)
+     * [Week 7 (5/18-5/24)<br>](#week-7-518-524)
+     * [Week 8 (5/25-5/31)<br>](#week-8-525-531)
+     * [Week 9 (6/1-6/7)<br>](#week-9-61-67)
+     * [Finals Week (6/8-6/13)<br>](#finals-week-68-613)
+  * [References](#references)
+
 ## Paper info:
 Title: The Building Blocks of Interpretability <br/>
 Link: https://distill.pub/2018/building-blocks/ <br/>
