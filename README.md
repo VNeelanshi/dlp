@@ -5,7 +5,7 @@ A quarter long project reproducing a deep learning paper
 ### Paper: The Building Blocks of Interpretability
 
 ## Paper info:
-Title: The Building Blocks of Interpretability
+Title: The Building Blocks of Interpretability <br/>
 Link: https://distill.pub/2018/building-blocks/
 Author: Chris Olah et. al. (Google Brain)
 Author contact: christopherolah.co@gmail.com 
