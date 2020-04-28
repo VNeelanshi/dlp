@@ -83,13 +83,13 @@ Update: we do not! But our results will not be as good as those produced by Goog
 
 
 ## References
-[1]Yu, R., & Alì, G. (2019). What's Inside the Black Box? AI Challenges for Lawyers and Researchers. Legal Information Management, 19(1), 2-13. doi:10.1017/S1472669619000021
-[2]http://yosinski.com/media/papers/Yosinski__2015__ICML_DL__Understanding_Neural_Networks_Through_Deep_Visualization__.pdf
-[3] https://distill.pub/2017/aia/
-[4] https://arxiv.org/pdf/1710.04806.pdf
-[5]https://arxiv.org/pdf/1902.00006.pdf
-[6]https://arxiv.org/pdf/1602.04938.pdf
-[7]https://arxiv.org/pdf/1702.04595.pdf
-[8]https://arxiv.org/pdf/1805.11571.pdf
-[9]https://arxiv.org/pdf/1312.6034.pdf
-[10]https://christophm.github.io/interpretable-ml-book/
+[1]Yu, R., & Alì, G. (2019). What's Inside the Black Box? AI Challenges for Lawyers and Researchers. Legal Information Management, 19(1), 2-13. doi:10.1017/S1472669619000021 <br/> 
+[2]http://yosinski.com/media/papers/Yosinski__2015__ICML_DL__Understanding_Neural_Networks_Through_Deep_Visualization__.pdf <br/> 
+[3] https://distill.pub/2017/aia/ <br/> 
+[4] https://arxiv.org/pdf/1710.04806.pdf <br/> 
+[5]https://arxiv.org/pdf/1902.00006.pdf <br/> 
+[6]https://arxiv.org/pdf/1602.04938.pdf <br/> 
+[7]https://arxiv.org/pdf/1702.04595.pdf <br/> 
+[8]https://arxiv.org/pdf/1805.11571.pdf <br/> 
+[9]https://arxiv.org/pdf/1312.6034.pdf <br/> 
+[10]https://christophm.github.io/interpretable-ml-book/ <br/> 
