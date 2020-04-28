@@ -6,9 +6,9 @@ A quarter long project reproducing a deep learning paper
 
 ## Paper info:
 Title: The Building Blocks of Interpretability <br/>
-Link: https://distill.pub/2018/building-blocks/
-Author: Chris Olah et. al. (Google Brain)
-Author contact: christopherolah.co@gmail.com 
+Link: https://distill.pub/2018/building-blocks/ <br/>
+Author: Chris Olah et. al. (Google Brain) <br/>
+Author contact: christopherolah.co@gmail.com <br/>
 Code repo: https://github.com/distillpub/post--building-blocks
 
 ## Literature review:
@@ -34,13 +34,13 @@ Other similar papers we found which were quite interesting -
 - https://colab.research.google.com/github/tensorflow/lucid/blob/master/notebooks/building-blocks/NeuronGroups.ipynb
 
 ## Other useful resources: 
-- Lucid -- lib used/written by authors for visualizing neural networks:
+- Lucid -- lib used/written by authors for visualizing neural networks:<br/>
 https://github.com/tensorflow/lucid
-- Some tutorials and all of the Colab notebooks created by the authors here:
+- Some tutorials and all of the Colab notebooks created by the authors here:<br/>
 https://github.com/tensorflow/lucid#notebooks 
-- Paper appendix, with info about other channels of GoogleNet
+- Paper appendix, with info about other channels of GoogleNet<br/>
 https://distill.pub/2017/feature-visualization/appendix/
-- Twitter walkthrough of the neuron visualizations by the author
+- Twitter walkthrough of the neuron visualizations by the author <br/>
 https://twitter.com/ch402/status/927968700384153601
 
 ## Reproducibility review:
@@ -57,28 +57,28 @@ We include here the statistically significant features that corresponded to pape
 - Number Tables: 4
 
 ## Timeline:
-- Week 3 (4/20-4/26):
-Pick project paper
+- Week 3 (4/20-4/26):<br/>
+Pick project paper<br/>
 Project proposal writeup
-- Week 4 (4/27-5/3):
-Read the paper completely and get a general overview
+- Week 4 (4/27-5/3):<br/>
+Read the paper completely and get a general overview<br/>
 Note down the unclear major concepts and discuss
-- Week 5 (5/4-5/10)
+- Week 5 (5/4-5/10)<br/>
 Understand and implement - Making Sense of Hidden Layers
-- Week 6 (5/11-5/17)
+- Week 6 (5/11-5/17)<br/>
 Understand and implement - What Does the Network See?
-- Week 7 (5/18-5/24)
+- Week 7 (5/18-5/24)<br/>
 Understand and implement - How Are Concepts Assembled?
-- Week 8 (5/25-5/31)
+- Week 8 (5/25-5/31)<br/>
 Understand and implement - Making Things Human-Scale
-- Week 9 (6/1-6/7)
+- Week 9 (6/1-6/7)<br/>
 Understand and implement -  The Space of Interpretability Interfaces
-- Finals Week (6/8-6/13)
-Wrap up
+- Finals Week (6/8-6/13)<br/>
+Wrap up<br/>
 Conclusion
 
 ### Other reproducibility notes: 
-We need to make sure that we don’t need to implement GoogleNet (lol) to get this working: https://twitter.com/ch402/status/928083043654320128?s=20 
+We need to make sure that we don’t need to implement GoogleNet (lol) to get this working:<br/> https://twitter.com/ch402/status/928083043654320128?s=20 
 Update: we do not! But our results will not be as good as those produced by GoogleNet
 
 
