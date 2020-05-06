@@ -3,7 +3,12 @@ Last modified 5/6/20
 GENERAL NOTES:
 - should have main.py that runs everything, at root of repo
 - /src folder should be for all Python modules made
-- need to decide on package manager (pipenv vs conda)
+- need to decide as team on package manager (pipenv vs conda)
+    - IMPORTANT: Python version must be 3.7 in order to work with Tensorflow 2
+    - using Pipenv for now
+    - Svelte setup: https://svelte.dev/blog/the-easiest-way-to-get-started
+
 
 TODOs:
 - add any big data junk to .gitignore that we don't want to store in Git
+- deal with Svelte setup (need to install via Node, it's a compiler of sorts)
