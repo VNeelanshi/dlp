@@ -6,4 +6,4 @@ GENERAL NOTES:
 - need to decide on package manager (pipenv vs conda)
 
 TODOs:
-- add .gitignore and add any big data junk to it that we don't want to store in Git
+- add any big data junk to .gitignore that we don't want to store in Git
