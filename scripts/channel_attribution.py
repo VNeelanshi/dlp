@@ -46,8 +46,8 @@ Thanks for trying Lucid!
 This code depends on [Lucid](https://github.com/tensorflow/lucid) (our visualization library), and [svelte](https://svelte.technology/) (a web framework). The following cell will install both of them, and dependencies such as TensorFlow. And then import them as appropriate.
 """
 
-!pip install --quiet lucid==0.0.5
-!npm install -g svelte-cli@2.2.0
+# !pip install --quiet lucid==0.0.5
+# !npm install -g svelte-cli@2.2.0     # <--- need to install using Node
 
 import numpy as np
 import tensorflow as tf
