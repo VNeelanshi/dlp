@@ -118,17 +118,23 @@ Project proposal writeup
 Read the paper completely and get a general overview<br/>
 Note down the unclear major concepts and discuss
 ### Week 5 (5/4-5/10)<br/>
-Understand and implement - Making Sense of Hidden Layers
+Figure out which notebooks are dependent on which<br/>
+Set up project (e.g. create environment, establish project structure, etc.)<br/>
+Each person starts converting one notebook to Python modules
 ### Week 6 (5/11-5/17)<br/>
-Understand and implement - What Does the Network See?
+Finish converting notebooks from last week to modules<br/>
+Hook up all components to create end-to-end pipeline, with a simple script for running 
 ### Week 7 (5/18-5/24)<br/>
-Understand and implement - How Are Concepts Assembled?
+Improve abstraction/modularity and run script from Week 6<br/>
+Make the code model-agnostic, try it with different models, record results
 ### Week 8 (5/25-5/31)<br/>
-Understand and implement - Making Things Human-Scale
+Handle overflow work from earlier weeks, fix bugs, etc.<br/> 
+Start web-component visualizations via Svelte (may be tackled in earlier weeks as well)
 ### Week 9 (6/1-6/7)<br/>
-Understand and implement -  The Space of Interpretability Interfaces
+Continue web-component visualizations via Svelte<br/>
+Wrap up 
 ### Finals Week (6/8-6/13)<br/>
-Wrap up<br/>
+Compare and report results<br/>
 Conclusion
 
 
