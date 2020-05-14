@@ -99,5 +99,5 @@ def render_activation_grid_less_naive(img, model, layer="mixed4d", W=42,
   show(np.hstack(np.hstack(vis_imgs_cropped)))
   return vis_imgs_cropped
 
-img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-_ = render_activation_grid_less_naive(img, model, W=48, n_steps=1024)
+# img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+# _ = render_activation_grid_less_naive(img, model, W=48, n_steps=1024)
