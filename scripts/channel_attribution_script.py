@@ -48,7 +48,7 @@ This code depends on [Lucid](https://github.com/tensorflow/lucid) (our visualiza
 
 # !pip install --quiet lucid==0.0.5
 # !npm install -g svelte-cli@2.2.0     # <--- need to install using Node
-
+import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
@@ -61,7 +61,7 @@ import lucid.optvis.transform as transform
 from lucid.misc.io import show, load
 from lucid.misc.io.reading import read
 from lucid.misc.io.showing import _image_url, _display_html
-# import lucid.scratch.web.svelte as lucid_svelte
+# import lucid.scratch.web.svelte as lucid_svelte  ## not using svelte just yet
 
 from src.utils import googlenet_spritemap
 
@@ -190,6 +190,16 @@ It's also worth noting that GoogLeNet has unusually semantically meaningful neur
 """
 """**Attribution Code**"""
 
+def visualize_attr_distribution(channel_attr):
+  # the [::-1] just reverses the sorted array so it goes from highest (pos) to lowest (neg)
+  # this is a simple histogram
+  y = np.sort(channel_attr)[::-1]
+  x = np.arange(len(y))
+  plt.bar(x, y)
+  plt.ylabel("Attribution Values")
+  plt.title("Distribution of Attribution Across Channels")
+  plt.show()
+
 def score_f(logit, name):
   if name is None:
     return 0
@@ -230,9 +240,10 @@ def channel_attr_simple(img, layer, class1, class2, n_show=4):
   spritemap_n, spritemap_url = googlenet_spritemap(layer)
   
   # Let's show the distribution of attributions
-  print("Distribution of attribution accross channels:")
+  print("Distribution of attribution across channels:")
   print("")
   # TODO: replace all lucid_svelte calls with alternate visualization
+  visualize_attr_distribution(channel_attr)
   # lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
 
   # Let's pick the most extreme channels to show
@@ -250,7 +261,6 @@ def channel_attr_simple(img, layer, class1, class2, n_show=4):
   #   "attrsPos": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_pos],
   #   "attrsNeg": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_neg]
   # })
-
 
 
 
@@ -289,6 +299,7 @@ def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=Fals
   # Let's show the distribution of attributions
   print("Distribution of attribution accross channels:")
   print("")
+  visualize_attr_distribution(channel_attr)
   # lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
 
   # Let's pick the most extreme channels to show
