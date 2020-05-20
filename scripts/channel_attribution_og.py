@@ -63,7 +63,7 @@ from lucid.misc.io.reading import read
 from lucid.misc.io.showing import _image_url, _display_html
 import lucid.scratch.web.svelte as lucid_svelte
 
-model = models.InceptionV1()
+model = models.InceptionV1()  # this is GoogLeNet
 model.load_graphdef()
 
 """# Setup (feel free to skip)
