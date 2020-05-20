@@ -61,7 +61,7 @@ import lucid.optvis.transform as transform
 from lucid.misc.io import show, load
 from lucid.misc.io.reading import read
 from lucid.misc.io.showing import _image_url, _display_html
-import lucid.scratch.web.svelte as lucid_svelte
+# import lucid.scratch.web.svelte as lucid_svelte
 
 model = models.InceptionV1()  # this is GoogLeNet
 model.load_graphdef()
@@ -241,16 +241,14 @@ def channel_attr_simple(img, layer, class1, class2, n_show=4):
     channel_attr = attr.sum(0).sum(0)
 
   # Now we just need to present the results.
-  
   # Get spritemaps
-  
-  
   spritemap_n, spritemap_url = googlenet_spritemap(layer)
   
   # Let's show the distribution of attributions
   print("Distribution of attribution accross channels:")
   print("")
-  lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
+  # TODO: replace all lucid_svelte calls with alternate visualization
+  # lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
 
   # Let's pick the most extreme channels to show
   ns_pos = list(np.argsort(-channel_attr)[:n_show])
@@ -260,31 +258,16 @@ def channel_attr_simple(img, layer, class1, class2, n_show=4):
   print("")
   print("Top", n_show, "channels in each direction:")
   print("")
-  lucid_svelte.ChannelAttrWidget({
-    "spritemap_url": spritemap_url,
-    "sprite_size": 110,
-    "sprite_n_wrap": spritemap_n,
-    "attrsPos": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_pos],
-    "attrsNeg": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_neg] 
-  })
+  # lucid_svelte.ChannelAttrWidget({
+  #   "spritemap_url": spritemap_url,
+  #   "sprite_size": 110,
+  #   "sprite_n_wrap": spritemap_n,
+  #   "attrsPos": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_pos],
+  #   "attrsNeg": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_neg]
+  # })
 
-"""# Channel attributions from article teaser"""
 
-img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=3)
 
-img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
-channel_attr_simple(img, "mixed4d", "vase", "lemon", n_show=3)
-
-img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/sunglasses_tux.png")
-channel_attr_simple(img, "mixed4d", "bow tie", "sunglasses", n_show=3)
-
-"""# Bigger channel attribution!!!"""
-
-img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=30)
-
-"""# Channel Attribution - Path Integrated"""
 
 def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=False, N = 100):
 
@@ -315,16 +298,13 @@ def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=Fals
     channel_attr = attr.sum(0).sum(0)
 
   # Now we just need to present the results.
-  
   # Get spritemaps
-  
-  
   spritemap_n, spritemap_url = googlenet_spritemap(layer)
   
   # Let's show the distribution of attributions
   print("Distribution of attribution accross channels:")
   print("")
-  lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
+  # lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
 
   # Let's pick the most extreme channels to show
   ns_pos = list(np.argsort(-channel_attr)[:n_show])
@@ -334,13 +314,13 @@ def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=Fals
   print("")
   print("Top", n_show, "channels in each direction:")
   print("")
-  lucid_svelte.ChannelAttrWidget({
-    "spritemap_url": spritemap_url,
-    "sprite_size": 110,
-    "sprite_n_wrap": spritemap_n,
-    "attrsPos": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_pos],
-    "attrsNeg": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_neg] 
-  })
+  # lucid_svelte.ChannelAttrWidget({
+  #   "spritemap_url": spritemap_url,
+  #   "sprite_size": 110,
+  #   "sprite_n_wrap": spritemap_n,
+  #   "attrsPos": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_pos],
+  #   "attrsNeg": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_neg]
+  # })
 
 def compare_attr_methods(img, class1, class2):
   
@@ -353,15 +333,37 @@ def compare_attr_methods(img, class1, class2):
   _display_html("<br><br><h2>Stochastic Path Integrated Attribution</h2>")
   channel_attr_path(img, "mixed4d", class1, class2, n_show=10, stochastic_path=True)
 
-img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
 
-compare_attr_methods(img, "Labrador retriever", "tiger cat")
+# move in everything not in a function
+# TODO: replace all lucid_svelte calls with alt visualization
+def main():
+  """# Channel attributions from article teaser"""
+  img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+  channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=3)
 
-img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
+  img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
+  channel_attr_simple(img, "mixed4d", "vase", "lemon", n_show=3)
 
-compare_attr_methods(img, "vase", "lemon")
+  img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/sunglasses_tux.png")
+  channel_attr_simple(img, "mixed4d", "bow tie", "sunglasses", n_show=3)
 
-img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/pig.jpeg")
 
-compare_attr_methods(img, "hog", "dalmatian")
+  """# Bigger channel attribution!!!"""
+  img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+  channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=30)
+
+
+  """# Channel Attribution - Path Integrated"""
+  img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+  compare_attr_methods(img, "Labrador retriever", "tiger cat")
+
+  img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
+  compare_attr_methods(img, "vase", "lemon")
+
+  img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/pig.jpeg")
+  compare_attr_methods(img, "hog", "dalmatian")
+
+
+if __name__ == "__main__":
+  main()
 
