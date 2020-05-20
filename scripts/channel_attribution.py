@@ -248,8 +248,8 @@ def channel_attr_simple(img, layer, class1, class2, n_show=4):
   spritemap_n, spritemap_url = googlenet_spritemap(layer)
   
   # Let's show the distribution of attributions
-  print "Distribution of attribution accross channels:"
-  print ""
+  print("Distribution of attribution accross channels:")
+  print("")
   lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
 
   # Let's pick the most extreme channels to show
@@ -257,9 +257,9 @@ def channel_attr_simple(img, layer, class1, class2, n_show=4):
   ns_neg = list(np.argsort(channel_attr)[:n_show][::-1])
   
   # ...  and show them with ChannelAttrWidget
-  print ""
-  print "Top", n_show, "channels in each direction:"
-  print ""
+  print("")
+  print("Top", n_show, "channels in each direction:")
+  print("")
   lucid_svelte.ChannelAttrWidget({
     "spritemap_url": spritemap_url,
     "sprite_size": 110,
@@ -322,8 +322,8 @@ def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=Fals
   spritemap_n, spritemap_url = googlenet_spritemap(layer)
   
   # Let's show the distribution of attributions
-  print "Distribution of attribution accross channels:"
-  print ""
+  print("Distribution of attribution accross channels:")
+  print("")
   lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
 
   # Let's pick the most extreme channels to show
@@ -331,9 +331,9 @@ def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=Fals
   ns_neg = list(np.argsort(channel_attr)[:n_show][::-1])
   
   # ...  and show them with ChannelAttrWidget
-  print ""
-  print "Top", n_show, "channels in each direction:"
-  print ""
+  print("")
+  print("Top", n_show, "channels in each direction:")
+  print("")
   lucid_svelte.ChannelAttrWidget({
     "spritemap_url": spritemap_url,
     "sprite_size": 110,
