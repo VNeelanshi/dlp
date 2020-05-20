@@ -11,6 +11,7 @@ lucid = "*"
 numpy = "*"
 jupyter = "*"
 certifi = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.7"
