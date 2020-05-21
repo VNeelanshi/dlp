@@ -61,7 +61,7 @@ from lucid.misc.io import show, load
 from lucid.misc.io.reading import read
 from lucid.misc.io.showing import _image_url
 from lucid.misc.gradient_override import gradient_override_map
-import lucid.scratch.web.svelte as lucid_svelte
+# import lucid.scratch.web.svelte as lucid_svelte
 
 """# Attribution Code"""
 
@@ -269,17 +269,17 @@ def spatial_spatial_attr(img, layer1, layer2, hint_label_1=None, hint_label_2=No
   attrs = raw_spatial_spatial_attr(img, layer1, layer2, override=override)
   attrs = attrs / attrs.max()
   
-  lucid_svelte.SpatialWidget({
-    "spritemap1": image_url_grid(attrs),
-    "spritemap2": image_url_grid(attrs.transpose(2,3,0,1)),
-    "size1": attrs.shape[3],
-    "layer1": layer1,
-    "size2": attrs.shape[0],
-    "layer2": layer2,
-    "img" : _image_url(img),
-    "hint1": _image_url(hint1),
-    "hint2": _image_url(hint2)
-  })
+  # lucid_svelte.SpatialWidget({
+  #   "spritemap1": image_url_grid(attrs),
+  #   "spritemap2": image_url_grid(attrs.transpose(2,3,0,1)),
+  #   "size1": attrs.shape[3],
+  #   "layer1": layer1,
+  #   "size2": attrs.shape[0],
+  #   "layer2": layer2,
+  #   "img" : _image_url(img),
+  #   "hint1": _image_url(hint1),
+  #   "hint2": _image_url(hint2)
+  # })
 
 """# Simple Attribution Example"""
 
