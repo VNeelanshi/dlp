@@ -56,7 +56,9 @@ import lucid.modelzoo.vision_models as models
 import lucid.optvis.render as render
 from lucid.misc.io import show, load
 from lucid.misc.io.showing import _image_url
-import lucid.scratch.web.svelte as lucid_svelte
+# import lucid.scratch.web.svelte as lucid_svelte
+
+from src.utils import googlenet_spritemap
 
 """# Semantic Dictionary Code
 
@@ -186,23 +188,6 @@ make your own neuron visualizations.
 
 It's also worth noting that GoogLeNet has unusually semantically meaningful neurons. We don't know why this is -- although it's an active area of research for us. More sophisticated interfaces, such as neuron groups, may work better for networks where meaningful ideas are more entangled or less aligned with the neuron directions.
 """
-
-layer_spritemap_sizes = {
-    'mixed3a' : 16,
-    'mixed3b' : 21,
-    'mixed4a' : 22,
-    'mixed4b' : 22,
-    'mixed4c' : 22,
-    'mixed4d' : 22,
-    'mixed4e' : 28,
-    'mixed5a' : 28,
-  }
-
-def googlenet_spritemap(layer):
-  assert layer in layer_spritemap_sizes
-  size = layer_spritemap_sizes[layer]
-  url = "https://storage.googleapis.com/lucid-static/building-blocks/googlenet_spritemaps/sprite_%s_channel_alpha.jpeg" % layer
-  return size, url
 
 """## **User facing constructor**
 
