@@ -46,8 +46,6 @@ Thanks for trying Lucid!
 This code depends on [Lucid](https://github.com/tensorflow/lucid) (our visualization library), and [svelte](https://svelte.technology/) (a web framework). The following cell will install both of them, and dependencies such as TensorFlow. And then import them as appropriate.
 """
 
-# !pip install --quiet lucid==0.0.5
-# !npm install -g svelte-cli@2.2.0     # <--- need to install using Node
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -69,115 +67,6 @@ from src.utils import googlenet_spritemap
 model = models.InceptionV1()  # this is GoogLeNet
 model.load_graphdef()
 
-"""# Setup (feel free to skip)
-
-**ChannelAttrWidget**
-
-Let's make a little widget for showing all our channels and attribution values.
-"""
-
-# Commented out IPython magic to ensure Python compatibility.
-# %%html_define_svelte ChannelAttrWidget
-# 
-# <div class="figure">
-#   <div class="channel_list" >
-#     {{#each attrsPos as attr}}
-#     <div class="entry">
-#       <div class="sprite" style="background-image: url({{spritemap_url}}); width: {{sprite_size}}px; height: {{sprite_size}}px; background-position: -{{sprite_size*(attr.n%sprite_n_wrap)}}px -{{sprite_size*Math.floor(attr.n/sprite_n_wrap)}}px;"></div>
-#       <div class="value" style="background-color: hsl({{(attr.v > 0)? 210 : 0}}, {{100*Math.abs(attr.v)/1.8}}%, {{100-30*Math.abs(attr.v)/1.8}}%)">{{attr.v}}</div>
-#     </div>
-#     {{/each}}
-#     {{#if attrsPos.length > 5}}
-#     <br style="clear:both;">
-#     <br style="clear:both;">
-#     {{/if}}
-#     <div class="gap">...</div>
-#     {{#each attrsNeg as attr}}
-#     <div class="entry">
-#       <div class="sprite" style="background-image: url({{spritemap_url}}); width: {{sprite_size}}px; height: {{sprite_size}}px; background-position: -{{sprite_size*(attr.n%sprite_n_wrap)}}px -{{sprite_size*Math.floor(attr.n/sprite_n_wrap)}}px;"></div>
-#       <div class="value" style="background-color: hsl({{(attr.v > 0)? 210 : 0}}, {{100*Math.abs(attr.v)/1.8}}%, {{100-30*Math.abs(attr.v)/1.8}}%)">{{attr.v}}</div>
-#     </div>
-#     {{/each}}
-#   </div>
-#   <br style="clear:both">
-# </div>
-# 
-# 
-# <style>
-#   .entry{
-#     float: left;
-#     margin-right: 4px;
-#   }
-#   .gap {
-#     float: left;
-#     margin: 8px;
-#     font-size: 400%;
-#   }
-# </style>
-# 
-# <script>
-#     
-#   function range(n){
-#     return Array(n).fill().map((_, i) => i);
-#   }
-#   
-#   export default {
-#     data () {
-#       return {
-#         spritemap_url: "",
-#         sprite_size: 110,
-#         sprite_n_wrap: 22,
-#         attrsPos: [],
-#         attrsNeg: [],
-#       };
-#     },
-#     computed: {
-#     },
-#     helpers: {range}
-#   };
-# </script>
-
-"""**BarsWidget**
-
-It would also be nice to see the distribution of attribution magnitudes. Let's make another widget for that.
-"""
-
-# Commented out IPython magic to ensure Python compatibility.
-# %%html_define_svelte BarsWidget
-# 
-# <div class="figure">
-#   <div class="channel_list" >
-#     {{#each vals as val}}
-#     <div class="bar" style="height: {{15*Math.abs(val)}}px; background-color: hsl({{(val > 0)? 210 : 0}}, {{Math.max(90, 110*Math.abs(val)/1.8)}}%, {{Math.min(80, 100-40*Math.abs(val)/1.8)}}%);">
-#     </div>
-#     {{/each}}
-#   </div>
-#   <br style="clear:both">
-# </div>
-# 
-# 
-# <style>
-#   .channel_list {
-#     background-color: #FEFEFE;
-#   }
-#   .bar {
-#     width: 1.5px;
-#     height: 10px;
-#     display: inline-block;
-#   }
-# </style>
-# 
-# <script>
-#   
-#   export default {
-#     data () {
-#       return {
-#         vals: []
-#       };
-#     }
-#   };
-# </script>
-
 """## **Spritemaps**
 
 In order to show the channels, we need "spritemaps" of channel visualizations.
@@ -190,6 +79,7 @@ It's also worth noting that GoogLeNet has unusually semantically meaningful neur
 """
 """**Attribution Code**"""
 
+# show distribution of attribution magnitudes
 def visualize_attr_distribution(channel_attr):
   # the [::-1] just reverses the sorted array so it goes from highest (pos) to lowest (neg)
   # this is a simple histogram
@@ -212,7 +102,6 @@ def score_f(logit, name):
     raise RuntimeError("Unsupported")
 
 def channel_attr_simple(img, layer, class1, class2, n_show=4):
-
   # Set up a graph for doing attribution...
   with tf.Graph().as_default(), tf.Session() as sess:
     t_input = tf.placeholder_with_default(img, [None, None, 3])
@@ -262,10 +151,7 @@ def channel_attr_simple(img, layer, class1, class2, n_show=4):
   #   "attrsNeg": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_neg]
   # })
 
-
-
 def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=False, N = 100):
-
   # Set up a graph for doing attribution...
   with tf.Graph().as_default(), tf.Session() as sess:
     t_input = tf.placeholder_with_default(img, [None, None, 3])
@@ -279,7 +165,6 @@ def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=Fals
     score = score_f(logit, class1) - score_f(logit, class2)
     t_grad = tf.gradients([score], [T(layer)])[0]
 
-    
     # Inegrate on a path from acts=0 to acts=acts
     attr = np.zeros(acts.shape[1:])
     for n in range(N):
@@ -297,7 +182,7 @@ def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=Fals
   spritemap_n, spritemap_url = googlenet_spritemap(layer)
   
   # Let's show the distribution of attributions
-  print("Distribution of attribution accross channels:")
+  print("Distribution of attribution across channels:")
   print("")
   visualize_attr_distribution(channel_attr)
   # lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
@@ -319,7 +204,6 @@ def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=Fals
   # })
 
 def compare_attr_methods(img, class1, class2):
-  
   _display_html("<h2>Linear Attribution</h2>")
   channel_attr_simple(img, "mixed4d", class1, class2, n_show=10)
 
@@ -330,10 +214,8 @@ def compare_attr_methods(img, class1, class2):
   channel_attr_path(img, "mixed4d", class1, class2, n_show=10, stochastic_path=True)
 
 
-# move in everything not in a function
 # TODO: replace all lucid_svelte calls with alt visualization
 def main():
-
   """# Channel attributions from article teaser"""
   img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
   channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=3)
@@ -363,4 +245,3 @@ def main():
 
 if __name__ == "__main__":
   main()
-
