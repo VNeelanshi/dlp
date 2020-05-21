@@ -217,14 +217,14 @@ def googlenet_semantic_dict(layer, img_url):
     
     # Actually construct the semantic dictionary interface
     # using our *custom component*
-    lucid_svelte.SemanticDict({
-        "spritemap_url": spritemap_url,
-        "sprite_size": 110,
-        "sprite_n_wrap": spritemap_n,
-        "image_url": _image_url(img),
-        "activations": [[[{"n": n, "v": float(act_vec[n])} for n in np.argsort(-act_vec)[:4]] for act_vec in act_slice] for act_slice in acts],
-        "pos" : [max_y, max_x]
-    })
+    # lucid_svelte.SemanticDict({
+    #     "spritemap_url": spritemap_url,
+    #     "sprite_size": 110,
+    #     "sprite_n_wrap": spritemap_n,
+    #     "image_url": _image_url(img),
+    #     "activations": [[[{"n": n, "v": float(act_vec[n])} for n in np.argsort(-act_vec)[:4]] for act_vec in act_slice] for act_slice in acts],
+    #     "pos" : [max_y, max_x]
+    # })
 
 """# Now let's make some semantic dictionaries!"""
 
