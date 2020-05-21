@@ -63,6 +63,9 @@ from lucid.misc.io.reading import read
 from lucid.misc.io.showing import _image_url, _display_html
 # import lucid.scratch.web.svelte as lucid_svelte
 
+from src.utils import googlenet_spritemap
+
+
 model = models.InceptionV1()  # this is GoogLeNet
 model.load_graphdef()
 
@@ -185,24 +188,6 @@ make your own neuron visualizations.
 
 It's also worth noting that GoogLeNet has unusually semantically meaningful neurons. We don't know why this is -- although it's an active area of research for us. More sophisticated interfaces, such as neuron groups, may work better for networks where meaningful ideas are more entangled or less aligned with the neuron directions.
 """
-
-layer_spritemap_sizes = {
-    'mixed3a' : 16,
-    'mixed3b' : 21,
-    'mixed4a' : 22,
-    'mixed4b' : 22,
-    'mixed4c' : 22,
-    'mixed4d' : 22,
-    'mixed4e' : 28,
-    'mixed5a' : 28,
-  }
-
-def googlenet_spritemap(layer):
-  assert layer in layer_spritemap_sizes
-  size = layer_spritemap_sizes[layer]
-  url = "https://storage.googleapis.com/lucid-static/building-blocks/googlenet_spritemaps/sprite_%s_channel_alpha.jpeg" % layer
-  return size, url
-
 """**Attribution Code**"""
 
 def score_f(logit, name):
@@ -337,6 +322,7 @@ def compare_attr_methods(img, class1, class2):
 # move in everything not in a function
 # TODO: replace all lucid_svelte calls with alt visualization
 def main():
+
   """# Channel attributions from article teaser"""
   img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
   channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=3)
