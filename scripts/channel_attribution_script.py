@@ -62,10 +62,10 @@ from lucid.misc.io.showing import _image_url, _display_html
 # import lucid.scratch.web.svelte as lucid_svelte  ## not using svelte just yet
 
 from src.utils import googlenet_spritemap
+from src.attribution import ChannelAttribution
 
-
-model = models.InceptionV1()  # this is GoogLeNet
-model.load_graphdef()
+# model = models.InceptionV1()  # this is GoogLeNet
+# model.load_graphdef()
 
 """## **Spritemaps**
 
@@ -79,77 +79,8 @@ It's also worth noting that GoogLeNet has unusually semantically meaningful neur
 """
 """**Attribution Code**"""
 
-# show distribution of attribution magnitudes
-def visualize_attr_distribution(channel_attr):
-  # the [::-1] just reverses the sorted array so it goes from highest (pos) to lowest (neg)
-  # this is a simple histogram
-  y = np.sort(channel_attr)[::-1]
-  x = np.arange(len(y))
-  plt.bar(x, y)
-  plt.ylabel("Attribution Values")
-  plt.title("Distribution of Attribution Across Channels")
-  plt.show()
-
-def score_f(logit, name):
-  if name is None:
-    return 0
-  elif name == "logsumexp":
-    base = tf.reduce_max(logit)
-    return base + tf.log(tf.reduce_sum(tf.exp(logit-base)))
-  elif name in model.labels:
-    return logit[model.labels.index(name)]
-  else:
-    raise RuntimeError("Unsupported")
-
-def channel_attr_simple(img, layer, class1, class2, n_show=4):
-  # Set up a graph for doing attribution...
-  with tf.Graph().as_default(), tf.Session() as sess:
-    t_input = tf.placeholder_with_default(img, [None, None, 3])
-    T = render.import_model(model, t_input, t_input)
-    
-    # Compute activations
-    acts = T(layer).eval()
-    
-    # Compute gradient
-    logit = T("softmax2_pre_activation")[0]
-    score = score_f(logit, class1) - score_f(logit, class2)
-    t_grad = tf.gradients([score], [T(layer)])[0]
-    grad = t_grad.eval()
-    
-    # Let's do a very simple linear approximation attribution.
-    # That is, we say the attribution of y to x is 
-    # the rate at which x changes y times the value of x.
-    attr = (grad*acts)[0]
-    
-    # Then we reduce down to channels.
-    channel_attr = attr.sum(0).sum(0)
-
-  # Now we just need to present the results.
-  # Get spritemaps
-  spritemap_n, spritemap_url = googlenet_spritemap(layer)
-  
-  # Let's show the distribution of attributions
-  print("Distribution of attribution across channels:")
-  print("")
-  # TODO: replace all lucid_svelte calls with alternate visualization
-  visualize_attr_distribution(channel_attr)
-  # lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
-
-  # Let's pick the most extreme channels to show
-  ns_pos = list(np.argsort(-channel_attr)[:n_show])
-  ns_neg = list(np.argsort(channel_attr)[:n_show][::-1])
-  
-  # ...  and show them with ChannelAttrWidget
-  print("")
-  print("Top", n_show, "channels in each direction:")
-  print("")
-  # lucid_svelte.ChannelAttrWidget({
-  #   "spritemap_url": spritemap_url,
-  #   "sprite_size": 110,
-  #   "sprite_n_wrap": spritemap_n,
-  #   "attrsPos": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_pos],
-  #   "attrsNeg": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_neg]
-  # })
+model = models.InceptionV1()  # this is GoogLeNet
+model.load_graphdef()
 
 def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=False, N = 100):
   # Set up a graph for doing attribution...
@@ -205,7 +136,7 @@ def channel_attr_path(img, layer, class1, class2, n_show=4, stochastic_path=Fals
 
 def compare_attr_methods(img, class1, class2):
   _display_html("<h2>Linear Attribution</h2>")
-  channel_attr_simple(img, "mixed4d", class1, class2, n_show=10)
+  attr.channel_attr_simple(img, "mixed4d", class1, class2, n_show=10)
 
   _display_html("<br><br><h2>Path Integrated Attribution</h2>")
   channel_attr_path(img, "mixed4d", class1, class2, n_show=10)
@@ -216,20 +147,21 @@ def compare_attr_methods(img, class1, class2):
 
 # TODO: replace all lucid_svelte calls with alt visualization
 def main():
+  attr = ChannelAttribution(model)
   """# Channel attributions from article teaser"""
   img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-  channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=3)
+  attr.channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=3)
 
   img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
-  channel_attr_simple(img, "mixed4d", "vase", "lemon", n_show=3)
+  attr.channel_attr_simple(img, "mixed4d", "vase", "lemon", n_show=3)
 
   img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/sunglasses_tux.png")
-  channel_attr_simple(img, "mixed4d", "bow tie", "sunglasses", n_show=3)
+  attr.channel_attr_simple(img, "mixed4d", "bow tie", "sunglasses", n_show=3)
 
 
   """# Bigger channel attribution!!!"""
   img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-  channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=30)
+  attr.channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=30)
 
 
   """# Channel Attribution - Path Integrated"""
