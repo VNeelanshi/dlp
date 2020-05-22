@@ -22,7 +22,7 @@ def visualize_attr_distribution(attr):
     plt.title("Distribution of Attribution")
     plt.show()
 
-
+# a technique for exploring how different detectors in the network affect its output
 class ChannelAttribution():
     def __init__(self, model):
         self.model = model
@@ -46,9 +46,8 @@ class ChannelAttribution():
         # Let's show the distribution of attributions
         print("Distribution of attribution across channels:")
         print("")
-        # TODO: replace all lucid_svelte calls with alternate visualization
+
         visualize_attr_distribution(channel_attr)
-        # lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
 
         # Let's pick the most extreme channels to show
         ns_pos = list(np.argsort(-channel_attr)[:n_show])
@@ -86,38 +85,11 @@ class ChannelAttribution():
             # That is, we say the attribution of y to x is
             # the rate at which x changes y times the value of x.
             attr = (grad * acts)[0]
-
             # Then we reduce down to channels.
             channel_attr = attr.sum(0).sum(0)
         self._present_results(layer, channel_attr, n_show)
-        # # Now we just need to present the results.
-        # # Get spritemaps
-        # spritemap_n, spritemap_url = googlenet_spritemap(layer)
-        #
-        # # Let's show the distribution of attributions
-        # print("Distribution of attribution across channels:")
-        # print("")
-        # # TODO: replace all lucid_svelte calls with alternate visualization
-        # visualize_attr_distribution(channel_attr)
-        # # lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
-        #
-        # # Let's pick the most extreme channels to show
-        # ns_pos = list(np.argsort(-channel_attr)[:n_show])
-        # ns_neg = list(np.argsort(channel_attr)[:n_show][::-1])
-        #
-        # # TODO: replace this visualization
-        # # ...  and show them with ChannelAttrWidget
-        # print("")
-        # print("Top", n_show, "channels in each direction:")
-        # print("")
-        # # lucid_svelte.ChannelAttrWidget({
-        # #   "spritemap_url": spritemap_url,
-        # #   "sprite_size": 110,
-        # #   "sprite_n_wrap": spritemap_n,
-        # #   "attrsPos": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_pos],
-        # #   "attrsNeg": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_neg]
-        # # })
 
+    # integrate on a path along activations
     def channel_attr_path(self, img, layer, class1, class2, n_show=4, stochastic_path=False, N=100):
         # Set up a graph for doing attribution...
         with tf.Graph().as_default(), tf.Session() as sess:
@@ -132,7 +104,7 @@ class ChannelAttribution():
             score = self.score_f(logit, class1) - self.score_f(logit, class2)
             t_grad = tf.gradients([score], [T(layer)])[0]
 
-            # Inegrate on a path from acts=0 to acts=acts
+            # Integrate on a path from acts=0 to acts=acts
             attr = np.zeros(acts.shape[1:])
             for n in range(N):
                 acts_ = acts * float(n) / N
@@ -140,33 +112,6 @@ class ChannelAttribution():
                     acts_ *= (np.random.uniform(0, 1, [528]) + np.random.uniform(0, 1, [528])) / 1.5
                 grad = t_grad.eval({T(layer): acts_})
                 attr += 1.0 / N * (grad * acts)[0]
-
             # Then we reduce down to channels.
             channel_attr = attr.sum(0).sum(0)
-            
         self._present_results(layer, channel_attr, n_show)
-        # # Now we just need to present the results.
-        # # Get spritemaps
-        # spritemap_n, spritemap_url = googlenet_spritemap(layer)
-        #
-        # # Let's show the distribution of attributions
-        # print("Distribution of attribution across channels:")
-        # print("")
-        # visualize_attr_distribution(channel_attr)
-        # # lucid_svelte.BarsWidget({"vals" : [float(v) for v in np.sort(channel_attr)[::-1]]})
-        #
-        # # Let's pick the most extreme channels to show
-        # ns_pos = list(np.argsort(-channel_attr)[:n_show])
-        # ns_neg = list(np.argsort(channel_attr)[:n_show][::-1])
-        #
-        # # ...  and show them with ChannelAttrWidget
-        # print("")
-        # print("Top", n_show, "channels in each direction:")
-        # print("")
-        # # lucid_svelte.ChannelAttrWidget({
-        # #   "spritemap_url": spritemap_url,
-        # #   "sprite_size": 110,
-        # #   "sprite_n_wrap": spritemap_n,
-        # #   "attrsPos": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_pos],
-        # #   "attrsNeg": [{"n": n, "v": str(float(channel_attr[n]))[:5]} for n in ns_neg]
-        # # })
