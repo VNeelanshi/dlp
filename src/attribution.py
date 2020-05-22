@@ -115,3 +115,38 @@ class ChannelAttribution():
             # Then we reduce down to channels.
             channel_attr = attr.sum(0).sum(0)
         self._present_results(layer, channel_attr, n_show)
+
+    def channel_attr(self, img, layer, class1, class2, mode="simple", n_show=4, stochastic_path=False, N=100):
+        # Set up a graph for doing attribution...
+        with tf.Graph().as_default(), tf.Session() as sess:
+            t_input = tf.placeholder_with_default(img, [None, None, 3])
+            T = render.import_model(self.model, t_input, t_input)
+
+            # Compute activations
+            acts = T(layer).eval()
+
+            # Compute gradient
+            logit = T("softmax2_pre_activation")[0]
+            score = self.score_f(logit, class1) - self.score_f(logit, class2)
+            t_grad = tf.gradients([score], [T(layer)])[0]
+
+            if mode == "simple":
+                grad = t_grad.eval()
+                # Let's do a very simple linear approximation attribution.
+                # That is, we say the attribution of y to x is
+                # the rate at which x changes y times the value of x.
+                attr = (grad * acts)[0]
+            elif mode == "path":
+                # Integrate on a path from acts=0 to acts=acts
+                attr = np.zeros(acts.shape[1:])
+                for n in range(N):
+                    acts_ = acts * float(n) / N
+                    if stochastic_path:
+                        acts_ *= (np.random.uniform(0, 1, [528]) + np.random.uniform(0, 1, [528])) / 1.5
+                    grad = t_grad.eval({T(layer): acts_})
+                    attr += 1.0 / N * (grad * acts)[0]
+            else:
+                raise AttributeError("Mode '{}' is invalid, choose 'simple' or 'path'".format(mode))
+            # Then we reduce down to channels.
+            channel_attr = attr.sum(0).sum(0)
+        self._present_results(layer, channel_attr, n_show)
