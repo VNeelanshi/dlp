@@ -38,10 +38,10 @@ To install all dependencies, run
 
 ```pipenv install```
 
-If you pull an updated Pipfile or Pipfile.lock, be sure to run `pipenv install` to update all dependencies accordingly.
+If you pull an updated Pipfile or Pipfile.lock, be sure to run `pipenv install` to update all dependencies accordingly. The Pipfile should lock automatically whenever you run the `install` command.
 
 ### Troubleshooting
-If you receive an error about the `tbb` package while locking, run `pipenv lock --clear` to clear the cache and it should lock all right. 
+If you receive an error about the `tbb` package while locking, run `pipenv lock --clear` to clear the cache and it should lock all right. Once you receive a "Success", your environment is all good to go.
 
 If you receive an "SSL: CERTIFICATE_VERIFY_FAILED" error upon execution, run the following to install the `certifi` package:
 
