@@ -54,13 +54,13 @@ model.load_graphdef()
 
 def compare_attr_methods(attr, img, class1, class2):
     _display_html("<h2>Linear Attribution</h2>")
-    attr.channel_attr_simple(img, "mixed4d", class1, class2, n_show=10)
+    attr.channel_attr(img, "mixed4d", class1, class2, mode="simple", n_show=10)
 
     _display_html("<br><br><h2>Path Integrated Attribution</h2>")
-    attr.channel_attr_path(img, "mixed4d", class1, class2, n_show=10)
+    attr.channel_attr(img, "mixed4d", class1, class2, mode="path", n_show=10)
 
     _display_html("<br><br><h2>Stochastic Path Integrated Attribution</h2>")
-    attr.channel_attr_path(img, "mixed4d", class1, class2, n_show=10, stochastic_path=True)
+    attr.channel_attr(img, "mixed4d", class1, class2, mode="path", n_show=10, stochastic_path=True)
 
 
 # TODO: replace all lucid_svelte calls with alt visualization
@@ -68,17 +68,17 @@ def main():
     attr = ChannelAttribution(model)
     """# Channel attributions from article teaser"""
     img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-    attr.channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=3)
+    attr.channel_attr(img, "mixed4d", "Labrador retriever", "tiger cat", mode="simple", n_show=3)
 
     img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
-    attr.channel_attr_simple(img, "mixed4d", "vase", "lemon", n_show=3)
+    attr.channel_attr(img, "mixed4d", "vase", "lemon", mode="simple", n_show=3)
 
     img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/sunglasses_tux.png")
-    attr.channel_attr_simple(img, "mixed4d", "bow tie", "sunglasses", n_show=3)
+    attr.channel_attr(img, "mixed4d", "bow tie", "sunglasses", mode="simple", n_show=3)
 
     """# Bigger channel attribution!!!"""
     img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-    attr.channel_attr_simple(img, "mixed4d", "Labrador retriever", "tiger cat", n_show=30)
+    attr.channel_attr(img, "mixed4d", "Labrador retriever", "tiger cat", mode="simple", n_show=30)
 
     """# Channel Attribution - Path Integrated"""
     img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
