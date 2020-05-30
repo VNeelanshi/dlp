@@ -23,7 +23,7 @@ import numpy as np
 import sys
 import tensorflow as tf
 
-import src.activation_grid as act
+from src.activation_grid import ActivationGrid
 
 
 def main():
@@ -31,6 +31,7 @@ def main():
     model.load_graphdef()
     img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
     # very naive still takes some time to run
+    act = ActivationGrid()
     result = act.render_activation_grid_very_naive(img, model, W=48, n_steps=1024)
     result = act.render_activation_grid_less_naive(img, model, W=48, n_steps=1024)
 
