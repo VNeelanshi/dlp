@@ -14,10 +14,6 @@ from lucid.misc.io import show, load
 
 '''This module contains code to render the activation grid'''
 
-# do I keep this part? since we are just importing the functions in main, unsure if this needs to be here. commenting out for now
-# model = models.InceptionV1()
-# model.load_graphdef()
-
 
 def render_activation_grid_very_naive(img, model, layer="mixed4d", W=42, n_steps=256):
 
@@ -43,12 +39,6 @@ def render_activation_grid_very_naive(img, model, layer="mixed4d", W=42, n_steps
     vis_imgs_cropped = vis_imgs_[:, :, 2:-2, 2:-2, :]
     show(np.hstack(np.hstack(vis_imgs_cropped)))
     return vis_imgs_cropped
-
-# commented out calling the function. this can serve as an example function call
-# img = load(
-#     "https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-# _ = render_activation_grid_very_naive(img, model, W=48, n_steps=1024)
-
 
 def render_activation_grid_less_naive(img, model, layer="mixed4d", W=42,
                                       n_groups=6, subsample_factor=1, n_steps=256):
@@ -119,8 +109,3 @@ def render_activation_grid_less_naive(img, model, layer="mixed4d", W=42,
     vis_imgs_cropped = vis_imgs_[:, :, 2:-2, 2:-2, :]
     show(np.hstack(np.hstack(vis_imgs_cropped)))
     return vis_imgs_cropped
-
-
-# commented out calling the function. this can serve as an example function call
-# img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-# _ = render_activation_grid_less_naive(img, model, W=48, n_steps=1024)
