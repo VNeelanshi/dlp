@@ -16,15 +16,15 @@ from lucid.misc.io import show, load
 
 
 class ActivationGrid():
-    def __init__(self):
-        pass
+    def __init__(self, model):
+        self.model = model
 
-    def render_activation_grid_very_naive(self, img, model, layer="mixed4d", W=42, n_steps=256):
+    def render_activation_grid_very_naive(self, img, layer="mixed4d", W=42, n_steps=256):
 
         # Get the activations
         with tf.Graph().as_default(), tf.Session() as sess:
             t_input = tf.placeholder("float32", [None, None, None, 3])
-            T = render.import_model(model, t_input, t_input)
+            T = render.import_model(self.model, t_input, t_input)
             acts = T(layer).eval({t_input: img[None]})[0]
         acts_flat = acts.reshape([-1] + [acts.shape[2]])
 
@@ -35,7 +35,7 @@ class ActivationGrid():
              for n, v in enumerate(acts_flat)
              ])
         thresholds = (n_steps//2, n_steps)
-        vis_imgs = render.render_vis(model, obj, param_f, thresholds=thresholds)[-1]
+        vis_imgs = render.render_vis(self.model, obj, param_f, thresholds=thresholds)[-1]
 
         # Combine the images and display the resulting grid
         vis_imgs_ = vis_imgs.reshape(list(acts.shape[:2]) + [W, W, 3])
@@ -43,11 +43,11 @@ class ActivationGrid():
         show(np.hstack(np.hstack(vis_imgs_cropped)))
         return vis_imgs_cropped
 
-    def render_activation_grid_less_naive(self, img, model, layer="mixed4d", W=42, n_groups=6, subsample_factor=1, n_steps=256):
+    def render_activation_grid_less_naive(self, img, layer="mixed4d", W=42, n_groups=6, subsample_factor=1, n_steps=256):
         # Get the activations
         with tf.Graph().as_default(), tf.Session() as sess:
             t_input = tf.placeholder("float32", [None, None, None, 3])
-            T = render.import_model(model, t_input, t_input)
+            T = render.import_model(self.model, t_input, t_input)
             acts = T(layer).eval({t_input: img[None]})[0]
         acts_flat = acts.reshape([-1] + [acts.shape[2]])
         N = acts_flat.shape[0]
@@ -92,7 +92,7 @@ class ActivationGrid():
                  ])
 
             # Actually do the optimization...
-            T = render.make_vis_T(model, obj, param_f=pres_imgs)
+            T = render.make_vis_T(self.model, obj, param_f=pres_imgs)
             tf.global_variables_initializer().run()
 
             for i in range(n_steps):

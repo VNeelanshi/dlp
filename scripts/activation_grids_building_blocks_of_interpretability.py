@@ -25,15 +25,17 @@ import tensorflow as tf
 
 from src.activation_grid import ActivationGrid
 
+'''This script renders an activation grid for GoogLeNet '''
+
 
 def main():
     model = models.InceptionV1()
     model.load_graphdef()
     img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+    act = ActivationGrid(model)
     # very naive still takes some time to run
-    act = ActivationGrid()
-    result = act.render_activation_grid_very_naive(img, model, W=48, n_steps=1024)
-    result = act.render_activation_grid_less_naive(img, model, W=48, n_steps=1024)
+    result = act.render_activation_grid_very_naive(img, W=48, n_steps=1024)
+    result = act.render_activation_grid_less_naive(img, W=48, n_steps=1024)
 
 if __name__ == "__main__":
     main()
