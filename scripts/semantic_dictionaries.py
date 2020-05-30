@@ -55,7 +55,7 @@ from lucid.misc.io import show, load
 from lucid.misc.io.showing import _image_url
 # import lucid.scratch.web.svelte as lucid_svelte
 
-from src import semantic_dict as sd
+from src.semantic_dict import SemanticDict
 
 
 """# Semantic Dictionary Code
@@ -86,6 +86,7 @@ Now we'll create a convenient API for creating semantic dictionary visualization
 def main():
     googlenet = models.InceptionV1()
     googlenet.load_graphdef()
+    sd = SemanticDict()
     sd.googlenet_semantic_dict(googlenet, "mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
 
     sd.googlenet_semantic_dict(googlenet, "mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
