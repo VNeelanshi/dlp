@@ -15,7 +15,7 @@ transforming them from abstract vectors to something more meaningful to humans. 
 also be applied to other bases, such as rotated versions of activations space that try to disentangle neurons.
 """
 
-
+# TODO: make into a class that works with any model, not just GoogLeNet
 def googlenet_semantic_dict(googlenet, layer, img_url):
     img = load(img_url)
 
@@ -33,7 +33,7 @@ def googlenet_semantic_dict(googlenet, layer, img_url):
     # Find appropriate spritemap
     spritemap_n, spritemap_url = googlenet_spritemap(layer)
 
-    # TODO: create visualization not in Svelte 
+    # TODO: create visualization not in Svelte
     # Actually construct the semantic dictionary interface
     # using our *custom component*
     # lucid_svelte.SemanticDict({
