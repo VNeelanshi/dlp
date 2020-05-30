@@ -10,6 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
@@ -24,12 +25,8 @@ import sys
 
 from lucid.misc.io import show, load
 
-model = models.InceptionV1()
-model.load_graphdef()
-
 
 def render_activation_grid_very_naive(img, model, layer="mixed4d", W=42, n_steps=256):
-
     # Get the activations
     with tf.Graph().as_default(), tf.Session() as sess:
         t_input = tf.placeholder("float32", [None, None, None, 3])
@@ -39,6 +36,7 @@ def render_activation_grid_very_naive(img, model, layer="mixed4d", W=42, n_steps
 
     # Render an image for each activation vector
     def param_f(): return param.image(W, batch=acts_flat.shape[0])
+
     obj = objectives.Objective.sum(
         [objectives.direction(layer, v, batch=n)
          for n, v in enumerate(acts_flat)
@@ -53,15 +51,8 @@ def render_activation_grid_very_naive(img, model, layer="mixed4d", W=42, n_steps
     show(np.hstack(np.hstack(vis_imgs_cropped)))
     return vis_imgs_cropped
 
-# commented out calling the function
-# img = load(
-#     "https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-# _ = render_activation_grid_very_naive(img, model, W=48, n_steps=1024)
-
-
 def render_activation_grid_less_naive(img, model, layer="mixed4d", W=42,
                                       n_groups=6, subsample_factor=1, n_steps=256):
-
     # Get the activations
     with tf.Graph().as_default(), tf.Session() as sess:
         t_input = tf.placeholder("float32", [None, None, None, 3])
@@ -85,7 +76,6 @@ def render_activation_grid_less_naive(img, model, layer="mixed4d", W=42,
     # Even though we're visualizing lots of images, we only run a small
     # subset through the network at once. In order to do this, we'll need
     # to hold tensors in a tensorflow graph around the visualization process.
-
     with tf.Graph().as_default() as graph, tf.Session() as sess:
 
         # Using the groups, create a paramaterization of images that
@@ -129,7 +119,14 @@ def render_activation_grid_less_naive(img, model, layer="mixed4d", W=42,
     show(np.hstack(np.hstack(vis_imgs_cropped)))
     return vis_imgs_cropped
 
+def main():
+    model = models.InceptionV1()
+    model.load_graphdef()
+    img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+    # very naive still takes some time to run
+    result = render_activation_grid_very_naive(img, model, W=48, n_steps=1024)
+    result = render_activation_grid_less_naive(img, model, W=48, n_steps=1024)
 
-# commented out calling the function
-# img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-# _ = render_activation_grid_less_naive(img, model, W=48, n_steps=1024)
+
+if __name__ == "__main__":
+    main()
