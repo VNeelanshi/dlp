@@ -86,10 +86,9 @@ Now we'll create a convenient API for creating semantic dictionary visualization
 def main():
     googlenet = models.InceptionV1()
     googlenet.load_graphdef()
-    sd = SemanticDict()
-    sd.googlenet_semantic_dict(googlenet, "mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-
-    sd.googlenet_semantic_dict(googlenet, "mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
+    sd = SemanticDict(googlenet)
+    sd.create_semantic_dict("mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+    sd.create_semantic_dict("mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
 
 
 if __name__ == "__main__":

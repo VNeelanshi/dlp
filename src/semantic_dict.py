@@ -16,17 +16,17 @@ also be applied to other bases, such as rotated versions of activations space th
 """
 
 class SemanticDict():
-    def __init__(self):
-        pass
+    def __init__(self, model):
+        self.model = model
 
-    # TODO: make into a class that works with any model, not just GoogLeNet
-    def googlenet_semantic_dict(self, googlenet, layer, img_url):
+    # NOTE: currently assumes model is GoogLeNet
+    def create_semantic_dict(self, layer, img_url):
         img = load(img_url)
 
         # Compute the activations
         with tf.Graph().as_default(), tf.Session():
             t_input = tf.placeholder(tf.float32, [224, 224, 3])
-            T = render.import_model(googlenet, t_input, t_input)
+            T = render.import_model(self.model, t_input, t_input)
             acts = T(layer).eval({t_input: img})[0]
 
         # Find the most interesting position for our initial view
@@ -34,6 +34,7 @@ class SemanticDict():
         max_x = np.argmax(max_mag.max(-1))
         max_y = np.argmax(max_mag[max_x])
 
+        # TODO: make this work for any model, not just GoogLeNet
         # Find appropriate spritemap
         spritemap_n, spritemap_url = googlenet_spritemap(layer)
 
