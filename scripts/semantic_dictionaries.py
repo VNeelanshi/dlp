@@ -80,11 +80,7 @@ It's also worth noting that GoogLeNet has unusually semantically meaningful neur
 Now we'll create a convenient API for creating semantic dictionary visualizations. It will compute the network activations for an image, grab an appropriate spritemap, and render the interface.
 """
 
-googlenet = models.InceptionV1()
-googlenet.load_graphdef()
-
-
-def googlenet_semantic_dict(layer, img_url):
+def googlenet_semantic_dict(googlenet, layer, img_url):
     img = load(img_url)
     
     # Compute the activations
@@ -100,7 +96,8 @@ def googlenet_semantic_dict(layer, img_url):
     
     # Find appropriate spritemap
     spritemap_n, spritemap_url = googlenet_spritemap(layer)
-    
+
+    # TODO: create visualization
     # Actually construct the semantic dictionary interface
     # using our *custom component*
     # lucid_svelte.SemanticDict({
@@ -113,7 +110,13 @@ def googlenet_semantic_dict(layer, img_url):
     # })
 
 """# Now let's make some semantic dictionaries!"""
+def main():
+    googlenet = models.InceptionV1()
+    googlenet.load_graphdef()
+    googlenet_semantic_dict(googlenet, "mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
 
-googlenet_semantic_dict("mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+    googlenet_semantic_dict(googlenet, "mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
 
-googlenet_semantic_dict("mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
+
+if __name__ == "__main__":
+    main()
