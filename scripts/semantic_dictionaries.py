@@ -23,27 +23,14 @@ Licensed under the Apache License, Version 2.0 (the "License");
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""# Semantic Dictionaries -- Building Blocks of Interpretability
+"""
+The basic idea of semantic dictionaries is to marry neuron activations to visualizations of those neurons, 
+transforming them from abstract vectors to something more meaningful to humans. Semantic dictionaries can also be 
+applied to other bases, such as rotated versions of activations space that try to disentangle neurons.
 
-This colab notebook is part of our **Building Blocks of Intepretability** series exploring how intepretability techniques combine together to explain neural networks. If you haven't already, make sure to look at the [**corresponding paper**](https://distill.pub/2018/building-blocks) as well!
-
-This notebook studies **semantic dictionaries**. The basic idea of semantic dictionaries is to marry neuron activations to visualizations of those neurons, transforming them from abstract vectors to something more meaningful to humans. Semantic dictionaries can also be applied to other bases, such as rotated versions of activations space that try to disentangle neurons.
-
-<br>
-<img src="https://storage.googleapis.com/lucid-static/building-blocks/notebook_heroes/semantic-dictionary.jpeg" width="648"></img>
-<br>
-
-This tutorial is based on [**Lucid**](https://github.com/tensorflow/lucid), a network for visualizing neural networks. Lucid is a kind of spiritual successor to DeepDream, but provides flexible abstractions so that it can be used for a wide range of interpretability research.
-
-**Note**: The easiest way to use this tutorial is [as a colab notebook](), which allows you to dive in with no setup. We recommend you enable a free GPU by going:
-
-> **Runtime**   →   **Change runtime type**   →   **Hardware Accelerator: GPU**
-
-Thanks for trying Lucid!
-
-# Install / Import / Load
-
-This code depends on [Lucid](https://github.com/tensorflow/lucid) (our visualization library), and [svelte](https://svelte.technology/) (a web framework). The following cell will install both of them, and dependancies such as TensorFlow. And then import them as appropriate.
+This code depends on [Lucid](https://github.com/tensorflow/lucid) (our visualization library), and 
+[svelte](https://svelte.technology/) (a web framework). The following cell will install both of them, and 
+dependancies such as TensorFlow. And then import them as appropriate.
 """
 
 import numpy as np
@@ -55,7 +42,8 @@ from lucid.misc.io import show, load
 from lucid.misc.io.showing import _image_url
 # import lucid.scratch.web.svelte as lucid_svelte
 
-from src.utils import googlenet_spritemap
+from src.semantic_dict import SemanticDict
+
 
 """# Semantic Dictionary Code
 
@@ -80,40 +68,15 @@ It's also worth noting that GoogLeNet has unusually semantically meaningful neur
 Now we'll create a convenient API for creating semantic dictionary visualizations. It will compute the network activations for an image, grab an appropriate spritemap, and render the interface.
 """
 
-googlenet = models.InceptionV1()
-googlenet.load_graphdef()
-
-
-def googlenet_semantic_dict(layer, img_url):
-    img = load(img_url)
-    
-    # Compute the activations
-    with tf.Graph().as_default(), tf.Session():
-        t_input = tf.placeholder(tf.float32, [224, 224, 3])
-        T = render.import_model(googlenet, t_input, t_input)
-        acts = T(layer).eval({t_input: img})[0]
-    
-    # Find the most interesting position for our initial view
-    max_mag = acts.max(-1)
-    max_x = np.argmax(max_mag.max(-1))
-    max_y = np.argmax(max_mag[max_x])
-    
-    # Find appropriate spritemap
-    spritemap_n, spritemap_url = googlenet_spritemap(layer)
-    
-    # Actually construct the semantic dictionary interface
-    # using our *custom component*
-    # lucid_svelte.SemanticDict({
-    #     "spritemap_url": spritemap_url,
-    #     "sprite_size": 110,
-    #     "sprite_n_wrap": spritemap_n,
-    #     "image_url": _image_url(img),
-    #     "activations": [[[{"n": n, "v": float(act_vec[n])} for n in np.argsort(-act_vec)[:4]] for act_vec in act_slice] for act_slice in acts],
-    #     "pos" : [max_y, max_x]
-    # })
 
 """# Now let's make some semantic dictionaries!"""
+def main():
+    googlenet = models.InceptionV1()
+    googlenet.load_graphdef()
+    sd = SemanticDict(googlenet)
+    sd.create_semantic_dict("mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+    sd.create_semantic_dict("mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
 
-googlenet_semantic_dict("mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
 
-googlenet_semantic_dict("mixed4d", "https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
+if __name__ == "__main__":
+    main()
