@@ -1,6 +1,6 @@
 # Reproducibility Report
 
-## Overview
+## Initial Reproducibility Review
 The paper seems highly reproducible given the criteria set forth by (Raff, 2019). Of note, we would need GPU compute power to run this, but we can do so in Colab. Rewriting the code into Python modules would take some work and create the need for a new compute resource, but this is manageable. Pretrained versions of GoogLeNet and its subsequent improvements (Inception v2 and v3) are available via PyTorch for ease of use. The paper is very easy to read and understand, and the visualizations provided are well documented and very clear.
 
 ## From Notebooks to Scripts
