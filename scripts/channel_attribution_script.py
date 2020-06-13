@@ -37,7 +37,7 @@ from lucid.misc.io.showing import _image_url, _display_html
 #from src.attribution import ChannelAttribution
 import sys
 sys.path.insert(0, '../src')
-import unittest
+# import unittest
 from attribution import ChannelAttribution
 
 """## **Spritemaps**
@@ -73,25 +73,25 @@ def main():
     img = load("dog_cat.png")
     attr.channel_attr(img, "mixed4d", "Labrador retriever", "tiger cat", mode="simple", n_show=3)
 
-    img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
-    attr.channel_attr(img, "mixed4d", "vase", "lemon", mode="simple", n_show=3)
+    # img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
+    # attr.channel_attr(img, "mixed4d", "vase", "lemon", mode="simple", n_show=3)
 
-    img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/sunglasses_tux.png")
-    attr.channel_attr(img, "mixed4d", "bow tie", "sunglasses", mode="simple", n_show=3)
+    # img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/sunglasses_tux.png")
+    # attr.channel_attr(img, "mixed4d", "bow tie", "sunglasses", mode="simple", n_show=3)
 
-    """# Bigger channel attribution!!!"""
-    img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-    attr.channel_attr(img, "mixed4d", "Labrador retriever", "tiger cat", mode="simple", n_show=30)
+    # """# Bigger channel attribution!!!"""
+    # img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+    # attr.channel_attr(img, "mixed4d", "Labrador retriever", "tiger cat", mode="simple", n_show=30)
 
-    """# Channel Attribution - Path Integrated"""
-    img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
-    compare_attr_methods(attr, img, "Labrador retriever", "tiger cat")
+    # """# Channel Attribution - Path Integrated"""
+    # img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
+    # compare_attr_methods(attr, img, "Labrador retriever", "tiger cat")
 
-    img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
-    compare_attr_methods(attr, img, "vase", "lemon")
+    # img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
+    # compare_attr_methods(attr, img, "vase", "lemon")
 
-    img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/pig.jpeg")
-    compare_attr_methods(attr, img, "hog", "dalmatian")
+    # img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/pig.jpeg")
+    # compare_attr_methods(attr, img, "hog", "dalmatian")
 
 
 if __name__ == "__main__":

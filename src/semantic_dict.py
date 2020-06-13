@@ -6,6 +6,8 @@ import lucid.optvis.render as render
 from lucid.misc.io import show, load
 from lucid.misc.io.showing import _image_url
 # import lucid.scratch.web.svelte as lucid_svelte
+import matplotlib.pyplot as plt
+from pylab import *
 
 import sys
 sys.path.insert(0, '../src')

@@ -10,7 +10,7 @@ from pylab import *
 #from src.utils import googlenet_spritemap
 import sys
 sys.path.insert(0, '../src')
-import unittest
+# import unittest
 from utils import googlenet_spritemap
 
 """ This module contains spatial attribution and channel attribution code"""
@@ -54,7 +54,7 @@ class ChannelAttribution():
         print("Distribution of attribution across channels:")
         print("")
 
-        # visualize_attr_distribution(channel_attr)
+        visualize_attr_distribution(channel_attr)
 
         # Let's pick the most extreme channels to show
         ns_pos = list(np.argsort(-channel_attr)[:n_show])
