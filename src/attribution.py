@@ -63,6 +63,9 @@ class ChannelAttribution():
         print("")
         print("Top", n_show, "channels in each direction:")
         print("")
+
+        imshow(load(spritemap_url))
+        print(size(load(spritemap_url)))
         # lucid_svelte.ChannelAttrWidget({
         #   "spritemap_url": spritemap_url,
         #   "sprite_size": 110,
