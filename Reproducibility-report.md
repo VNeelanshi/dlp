@@ -12,6 +12,7 @@ Once our scripts were created and running, we set out to use the code to create 
 ## Visualization
 We performed visualization using matplotlib instead of the original lucid library. The visualizations include distribution of channels, spatial distribution of different channels based on the number of layers after calculating the computational graphs. Following are sample images of channels for an image consisting of a cat and a dog. 
 
+![Spritemap 4D Channel](https://github.com/VNeelanshi/dlp/blob/master/scripts/sprite_mixed4d_channel_alpha.jpeg?raw=true)
 
 ## Unit tests
 We created a set of tests for each of the original notebooks, i.e. each visualization module to check the source files. The test files helped us understand the overall work flow and structure of the code. It also helped us find exact points where the code was breaking. Unlike main.py file, these test scripts test individual module and hence problems in one module will not mess up with other files.
