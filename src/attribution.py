@@ -6,7 +6,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
-from src.utils import googlenet_spritemap
+#from src.utils import googlenet_spritemap
+import sys
+sys.path.insert(0, '../src')
+import unittest
+from utils import googlenet_spritemap
 
 """ This module contains spatial attribution and channel attribution code"""
 

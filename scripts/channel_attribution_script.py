@@ -34,8 +34,11 @@ from lucid.misc.io import show, load
 from lucid.misc.io.showing import _image_url, _display_html
 # import lucid.scratch.web.svelte as lucid_svelte  ## not using svelte just yet
 
-from src.attribution import ChannelAttribution
-
+#from src.attribution import ChannelAttribution
+import sys
+sys.path.insert(0, '../src')
+import unittest
+from attribution import ChannelAttribution
 
 """## **Spritemaps**
 
