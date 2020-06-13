@@ -39,7 +39,7 @@ import tensorflow as tf
 import lucid.modelzoo.vision_models as models
 import lucid.optvis.render as render
 from lucid.misc.io import show, load
-from lucid.misc.io.showing import _image_url
+from lucid.misc.io.showing import _image_url, _display_html
 # import lucid.scratch.web.svelte as lucid_svelte
 
 import sys

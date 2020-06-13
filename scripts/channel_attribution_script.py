@@ -70,7 +70,8 @@ def compare_attr_methods(attr, img, class1, class2):
 def main():
     attr = ChannelAttribution(model)
     """# Channel attributions from article teaser"""
-    img = load("dog_cat.png")
+    # img = load("dog_cat.png")
+    img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/dog_cat.png")
     attr.channel_attr(img, "mixed4d", "Labrador retriever", "tiger cat", mode="simple", n_show=3)
 
     # img = load("https://storage.googleapis.com/lucid-static/building-blocks/examples/flowers.png")
