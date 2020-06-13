@@ -5,6 +5,7 @@ from lucid.misc.io.showing import _image_url, _display_html
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
+from pylab import *
 
 #from src.utils import googlenet_spritemap
 import sys
@@ -26,6 +27,7 @@ def visualize_attr_distribution(attr):
     plt.title("Distribution of Attribution")
     plt.show()
 
+from PIL import Image
 
 # a technique for exploring how different detectors in the network affect its output
 class ChannelAttribution():
@@ -64,8 +66,10 @@ class ChannelAttribution():
         print("Top", n_show, "channels in each direction:")
         print("")
 
-        imshow(load(spritemap_url))
-        print(size(load(spritemap_url)))
+        image = Image.open("sprite_mixed4d_channel_alpha.jpeg")
+        image.show()
+        # imshow('sprite_mixed4d_channel_alpha.jpeg')
+        # print(size(load(spritemap_url)))
         # lucid_svelte.ChannelAttrWidget({
         #   "spritemap_url": spritemap_url,
         #   "sprite_size": 110,
