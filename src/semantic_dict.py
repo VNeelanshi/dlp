@@ -4,15 +4,18 @@ import tensorflow as tf
 import lucid.modelzoo.vision_models as models
 import lucid.optvis.render as render
 from lucid.misc.io import show, load
-from lucid.misc.io.showing import _image_url
+from lucid.misc.io.showing import _image_url, _display_html
 # import lucid.scratch.web.svelte as lucid_svelte
 import matplotlib.pyplot as plt
 from pylab import *
 
 import sys
 sys.path.insert(0, '../src')
-import unittest
+# import unittest
 from utils import googlenet_spritemap
+
+from PIL import Image
+
 
 """
 The basic idea of semantic dictionaries is to marry neuron activations to visualizations of those neurons, 
@@ -26,9 +29,9 @@ class SemanticDict():
 
     # NOTE: currently assumes model is GoogLeNet
     def create_semantic_dict(self, layer, img_url):
-        img = load(img_url)
-
-        # Compute the activations
+        # img = load(img_url)
+        img = imread(img_url)
+        # # Compute the activations
         with tf.Graph().as_default(), tf.Session():
             t_input = tf.placeholder(tf.float32, [224, 224, 3])
             T = render.import_model(self.model, t_input, t_input)
@@ -43,8 +46,10 @@ class SemanticDict():
         # Find appropriate spritemap
         spritemap_n, spritemap_url = googlenet_spritemap(layer)
 
-        imshow(load(spritemap_url))
-        print(size(load(spritemap_url)))
+        image = Image.open("sprite_mixed4d_channel_alpha.jpeg")
+        image.show()
+        # imshow(load(spritemap_url))
+        # print(size(load(spritemap_url)))
         # TODO: create visualization not in Svelte
         # Actually construct the semantic dictionary interface
         # using our *custom component*
