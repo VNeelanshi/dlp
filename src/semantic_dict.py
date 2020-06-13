@@ -7,7 +7,10 @@ from lucid.misc.io import show, load
 from lucid.misc.io.showing import _image_url
 # import lucid.scratch.web.svelte as lucid_svelte
 
-from src.utils import googlenet_spritemap
+import sys
+sys.path.insert(0, '../src')
+import unittest
+from utils import googlenet_spritemap
 
 """
 The basic idea of semantic dictionaries is to marry neuron activations to visualizations of those neurons, 
@@ -38,6 +41,8 @@ class SemanticDict():
         # Find appropriate spritemap
         spritemap_n, spritemap_url = googlenet_spritemap(layer)
 
+        imshow(load(spritemap_url))
+        print(size(load(spritemap_url)))
         # TODO: create visualization not in Svelte
         # Actually construct the semantic dictionary interface
         # using our *custom component*

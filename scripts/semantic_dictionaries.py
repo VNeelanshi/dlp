@@ -42,7 +42,10 @@ from lucid.misc.io import show, load
 from lucid.misc.io.showing import _image_url
 # import lucid.scratch.web.svelte as lucid_svelte
 
-from src.semantic_dict import SemanticDict
+import sys
+sys.path.insert(0, '../src')
+import unittest
+from semantic_dict import SemanticDict
 
 
 """# Semantic Dictionary Code
