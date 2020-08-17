@@ -1,5 +1,7 @@
 # Reproducing and Modularizing *The Building Blocks of Interpretability*
-A quarter-long project for Northwestern University's Deep Learning for Practitioners course. We attempt to reproduce the paper [The Building Blocks of Interpretability (Olah et al, 2018)](https://distill.pub/2018/building-blocks/) with the aim of making the original authors' code usable, modular, and extensible. 
+A quarter-long project for Northwestern University's Deep Learning for Practitioners course. We attempt to reproduce the paper [The Building Blocks of Interpretability (Olah et al, 2018)](https://distill.pub/2018/building-blocks/) with the aim of making the original authors' code usable, modular, and extensible.
+
+You can view our [Tips and Tricks](/TipsAndTricks.md) for reproducing the work of Olah et al, as well our [Reproducibility Report](/Reproducibility-report.md) for the paper. 
 
 ### Team: Nayan Mehta, KJ Schmidt, Aristana Scourtas, Neelanshi Varia 
 ### Paper: The Building Blocks of Interpretability
