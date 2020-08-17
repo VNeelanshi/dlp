@@ -1,13 +1,13 @@
-# DLP Project Proposal
-A quarter long project reproducing a deep learning paper
+# Reproducing and Modularizing *The Building Blocks of Interpretability*
+A quarter-long project for Northwestern University's Deep Learning for Practitioners course. We attempt to reproduce the paper [The Building Blocks of Interpretability (Olah et al, 2018)](https://distill.pub/2018/building-blocks/) with the aim of making the original authors' code usable, modular, and extensible. 
 
 ### Team: Nayan Mehta, KJ Schmidt, Aristana Scourtas, Neelanshi Varia 
 ### Paper: The Building Blocks of Interpretability
 
 ## Table of Contents
-  * [Paper info](#paper-info)
   * [Setup](#setup)
      * [Troubleshooting](#troubleshooting)
+  * [Paper info](#paper-info)
   * [Literature review](#literature-review)
   * [Codebase search](#codebase-search)
   * [Other useful resources](#other-useful-resources)
@@ -120,7 +120,7 @@ https://towardsdatascience.com/a-simple-guide-to-the-versions-of-the-inception-n
 https://datascience.stackexchange.com/questions/15328/what-is-the-difference-between-inception-v2-and-inception-v3 
 
 ## Reproducibility review
-We include here the statistically significant features that corresponded to paper reproducibility from (Raff, 2019). 
+We include here the statistically significant features that corresponded to paper reproducibility from [(Raff, 2019)](https://arxiv.org/abs/1909.06674). 
 - *Rigor vs Empirical:* empirical (which is the more reproducible outcome)
 - *Readability:* “Excellent.” We feel that we will be able to reproduce the code in a single read.
 - *Algorithm Difficulty:* Medium
